@@ -6,11 +6,19 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
+  darkMode: 'class',
+   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        chatgpt: {
+          '50': '#ececf1',
+          '100': '#d9d9e3',
+          '200': '#353740',
+          '300': '#40414f',
+          '400': '#444654',
+          '500': '#343541',
+          '600': '#202123',
+        },
       },
     },
   },
