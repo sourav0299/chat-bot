@@ -5,10 +5,25 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { message, selectedOption } = await req.json();
 
     if (!message) {
       return NextResponse.json({ error: 'No message provided' }, { status: 400 });
+    }
+
+    let modelName: string;
+    switch (selectedOption) {
+      case 'Gemini 1.0':
+        modelName = "gemini-pro";
+        break;
+      case 'Gemini 2.0':
+        modelName = "gemini-pro-vision";
+        break;
+      case 'Gemini 3.0':
+        modelName = "embedding-001";
+        break;
+      default:
+        modelName = "gemini-pro";
     }
 
     const model: GenerativeModel = genAI.getGenerativeModel({ model: "gemini-pro" });
