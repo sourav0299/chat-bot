@@ -4,8 +4,31 @@ import styled from "styled-components";
 const Radio = () => {
   const [selectedOption, setSelectedOption] = useState("Gemini 1.0");
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newOption = event.target.value;
+    setSelectedOption(newOption);
+
+    try {
+      const response = await fetch('/api/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: "Test message",
+          selectedOption: newOption,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Response from server:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -28,8 +51,8 @@ const Radio = () => {
               id="all"
               name="option"
               type="radio"
-              value="All"
-              checked={selectedOption === "All"}
+              value="Gemini 1.0"
+              checked={selectedOption === "Gemini 1.0"}
               onChange={handleOptionChange}
             />
             <label className="option" htmlFor="all">
@@ -41,8 +64,8 @@ const Radio = () => {
               id="option-1"
               name="option"
               type="radio"
-              value="option-1"
-              checked={selectedOption === "option-1"}
+              value="Gemini 2.0"
+              checked={selectedOption === "Gemini 2.0"}
               onChange={handleOptionChange}
             />
             <label className="option" htmlFor="option-1">
@@ -54,8 +77,8 @@ const Radio = () => {
               id="option-2"
               name="option"
               type="radio"
-              value="option-2"
-              checked={selectedOption === "option-2"}
+              value="Gemini 3.0"
+              checked={selectedOption === "Gemini 3.0"}
               onChange={handleOptionChange}
             />
             <label className="option" htmlFor="option-2">
@@ -67,8 +90,8 @@ const Radio = () => {
               id="option-3"
               name="option"
               type="radio"
-              value="option-3"
-              checked={selectedOption === "option-3"}
+              value="Gemini 4.0"
+              checked={selectedOption === "Gemini 4.0"}
               onChange={handleOptionChange}
             />
             <label className="option" htmlFor="option-3">

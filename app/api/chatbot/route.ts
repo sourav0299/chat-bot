@@ -17,22 +17,25 @@ export async function POST(req: Request) {
         modelName = "gemini-pro";
         break;
       case 'Gemini 2.0':
-        modelName = "gemini-pro-vision";
+        modelName = "gemini-1.5-pro";
         break;
       case 'Gemini 3.0':
-        modelName = "embedding-001";
+        modelName = "gemini-1.5-flash";
+        break;
+      case 'Gemini 4.0':
+        modelName = "gemini-1.5-flash";
         break;
       default:
         modelName = "gemini-pro";
     }
 
-    const model: GenerativeModel = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model: GenerativeModel = genAI.getGenerativeModel({ model: modelName });
 
     const result = await model.generateContent(message);
     const response = await result.response;
     const text = response.text();
 
-    return NextResponse.json({ response: text });
+    return NextResponse.json({ response: text, modelName: modelName });
   } catch (error: unknown) {
     console.error('Error:', error);
     
@@ -45,5 +48,5 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  return NextResponse.json({ status: 'OK', message: 'Chatbot API is running' });
+  return NextResponse.json({ status: 'OK', message: `AI is running on`, modelName: "gemini-pro" });
 }
