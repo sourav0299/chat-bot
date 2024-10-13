@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggleButton from './ThemeToggleButton';
+import Selector from './Selector';
 import Loading from './Loading';
 import '../globals.css'
 
@@ -177,6 +178,7 @@ const clearChat = () => {
 return (
     <div className={`w-full max-w-[1200px] p-4 mx-auto rounded-lg shadow-lg ${theme === 'dark' ? 'bg-[#343541] text-white' : 'bg-white text-[#353740]'}`}>
     <div className="flex justify-end mb-4 gap-5">
+      <Selector />
       <button
         onClick={clearChat}
         className={`px-4 py-2 rounded-md ${
